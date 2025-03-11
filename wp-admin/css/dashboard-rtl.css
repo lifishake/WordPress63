@@ -515,11 +515,6 @@
 	vertical-align: middle;
 }
 
-#community-events-submit {
-	margin-right: 3px;
-	margin-left: 3px;
-}
-
 /* Needs higher specificity than #dashboard-widgets .button-link */
 #dashboard-widgets .community-events-cancel.button-link {
 	vertical-align: top;
@@ -1423,12 +1418,6 @@ a.rsswidget {
 
 	.community-events-form .regular-text {
 		height: 32px;
-	}
-
-	#community-events-submit {
-		margin-bottom: 0;
-		/* Override .wp-core-ui .button */
-		vertical-align: top;
 	}
 
 	.community-events-form label,
