@@ -1858,10 +1858,6 @@ function wp_widgets_init() {
 
 	register_widget( 'WP_Nav_Menu_Widget' );
 
-	register_widget( 'WP_Widget_Custom_HTML' );
-
-	register_widget( 'WP_Widget_Block' );
-
 	/**
 	 * Fires after all default WordPress widgets have been registered.
 	 *
