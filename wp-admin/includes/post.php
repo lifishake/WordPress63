@@ -2592,24 +2592,6 @@ function the_block_editor_meta_box_post_form_hidden_fields( $post ) {
 }
 
 /**
- * Disables block editor for wp_navigation type posts so they can be managed via the UI.
- *
- * @since 5.9.0
- * @access private
- *
- * @param bool   $value Whether the CPT supports block editor or not.
- * @param string $post_type Post type.
- * @return bool Whether the block editor should be disabled or not.
- */
-function _disable_block_editor_for_navigation_post_type( $value, $post_type ) {
-	if ( 'wp_navigation' === $post_type ) {
-		return false;
-	}
-
-	return $value;
-}
-
-/**
  * This callback disables the content editor for wp_navigation type posts.
  * Content editor cannot handle wp_navigation type posts correctly.
  * We cannot disable the "editor" feature in the wp_navigation's CPT definition

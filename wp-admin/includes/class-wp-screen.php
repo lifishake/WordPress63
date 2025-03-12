@@ -312,7 +312,7 @@ final class WP_Screen {
 							$replace_editor = apply_filters( 'replace_editor', false, $post );
 
 							if ( ! $replace_editor ) {
-								$is_block_editor = use_block_editor_for_post( $post );
+								$is_block_editor = false;
 							}
 						}
 					}
@@ -337,7 +337,7 @@ final class WP_Screen {
 
 				// When creating a new post, use the default block editor support value for the post type.
 				if ( empty( $post_id ) ) {
-					$is_block_editor = use_block_editor_for_post_type( $post_type );
+					$is_block_editor = false;
 				}
 
 				$id = $post_type;
@@ -390,7 +390,7 @@ final class WP_Screen {
 		$screen->is_user         = ( 'user' === $in_admin );
 		$screen->is_network      = ( 'network' === $in_admin );
 		$screen->in_admin        = $in_admin;
-		$screen->is_block_editor = $is_block_editor;
+		$screen->is_block_editor = false;
 
 		self::$_registry[ $id ] = $screen;
 
