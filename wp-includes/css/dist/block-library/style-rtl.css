@@ -3111,10 +3111,6 @@ ul.wp-block-rss.is-grid li{
   background-color:#1da1f2;
   color:#fff;
 }
-:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-vimeo{
-  background-color:#1eb7ea;
-  color:#fff;
-}
 :where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-vk{
   background-color:#4680c2;
   color:#fff;
@@ -3258,9 +3254,6 @@ ul.wp-block-rss.is-grid li{
 }
 :where(.wp-block-social-links.is-style-logos-only) .wp-social-link-twitter{
   color:#1da1f2;
-}
-:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-vimeo{
-  color:#1eb7ea;
 }
 :where(.wp-block-social-links.is-style-logos-only) .wp-social-link-vk{
   color:#4680c2;

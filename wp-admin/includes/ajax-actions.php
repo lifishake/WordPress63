@@ -3841,7 +3841,7 @@ function wp_ajax_parse_embed() {
 		}
 
 		ob_start();
-		wp_print_scripts( array( 'mediaelement-vimeo', 'wp-mediaelement' ) );
+		wp_print_scripts( array( 'wp-mediaelement' ) );
 		$scripts = ob_get_clean();
 
 		$parsed = $styles . $html . $scripts;
@@ -3952,7 +3952,7 @@ function wp_ajax_parse_media_shortcode() {
 
 		wp_print_scripts( 'wp-playlist' );
 	} else {
-		wp_print_scripts( array( 'mediaelement-vimeo', 'wp-mediaelement' ) );
+		wp_print_scripts( array( 'wp-mediaelement' ) );
 	}
 
 	wp_send_json_success(

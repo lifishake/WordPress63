@@ -16160,18 +16160,6 @@ const embedFlickrIcon = /*#__PURE__*/(0,external_ReactJSXRuntime_namespaceObject
     d: "m6.5 7c-2.75 0-5 2.25-5 5s2.25 5 5 5 5-2.25 5-5-2.25-5-5-5zm11 0c-2.75 0-5 2.25-5 5s2.25 5 5 5 5-2.25 5-5-2.25-5-5-5z"
   })
 });
-const embedVimeoIcon = {
-  foreground: '#1ab7ea',
-  src: /*#__PURE__*/(0,external_ReactJSXRuntime_namespaceObject.jsx)(external_wp_components_namespaceObject.SVG, {
-    xmlns: "http://www.w3.org/2000/svg",
-    viewBox: "0 0 24 24",
-    children: /*#__PURE__*/(0,external_ReactJSXRuntime_namespaceObject.jsx)(external_wp_components_namespaceObject.G, {
-      children: /*#__PURE__*/(0,external_ReactJSXRuntime_namespaceObject.jsx)(external_wp_components_namespaceObject.Path, {
-        d: "M22.396 7.164c-.093 2.026-1.507 4.8-4.245 8.32C15.323 19.16 12.93 21 10.97 21c-1.214 0-2.24-1.12-3.08-3.36-.56-2.052-1.118-4.105-1.68-6.158-.622-2.24-1.29-3.36-2.004-3.36-.156 0-.7.328-1.634.98l-.978-1.26c1.027-.903 2.04-1.806 3.037-2.71C6 3.95 7.03 3.328 7.716 3.265c1.62-.156 2.616.95 2.99 3.32.404 2.558.685 4.148.84 4.77.468 2.12.982 3.18 1.543 3.18.435 0 1.09-.687 1.963-2.064.872-1.376 1.34-2.422 1.402-3.142.125-1.187-.343-1.782-1.4-1.782-.5 0-1.013.115-1.542.34 1.023-3.35 2.977-4.976 5.862-4.883 2.14.063 3.148 1.45 3.024 4.16z"
-      })
-    })
-  })
-};
 const embedRedditIcon = /*#__PURE__*/(0,external_ReactJSXRuntime_namespaceObject.jsx)(external_wp_components_namespaceObject.SVG, {
   viewBox: "0 0 24 24",
   children: /*#__PURE__*/(0,external_ReactJSXRuntime_namespaceObject.jsx)(external_wp_components_namespaceObject.Path, {
@@ -17078,17 +17066,6 @@ const embed_variations_variations = [{
   patterns: [/^https?:\/\/(www\.)?flickr\.com\/.+/i, /^https?:\/\/flic\.kr\/.+/i],
   attributes: {
     providerNameSlug: 'flickr',
-    responsive: true
-  }
-}, {
-  name: 'vimeo',
-  title: getTitle('Vimeo'),
-  icon: embedVimeoIcon,
-  keywords: [(0,external_wp_i18n_namespaceObject.__)('video')],
-  description: (0,external_wp_i18n_namespaceObject.__)('Embed a Vimeo video.'),
-  patterns: [/^https?:\/\/(www\.)?vimeo\.com\/.+/i],
-  attributes: {
-    providerNameSlug: 'vimeo',
     responsive: true
   }
 }, {
@@ -55371,21 +55348,6 @@ const TwitterIcon = () => /*#__PURE__*/(0,external_ReactJSXRuntime_namespaceObje
   })
 });
 
-;// ./node_modules/@wordpress/block-library/build-module/social-link/icons/vimeo.js
-/**
- * WordPress dependencies
- */
-
-
-const VimeoIcon = () => /*#__PURE__*/(0,external_ReactJSXRuntime_namespaceObject.jsx)(external_wp_primitives_namespaceObject.SVG, {
-  width: "24",
-  height: "24",
-  viewBox: "0 0 24 24",
-  version: "1.1",
-  children: /*#__PURE__*/(0,external_ReactJSXRuntime_namespaceObject.jsx)(external_wp_primitives_namespaceObject.Path, {
-    d: "M22.396,7.164c-0.093,2.026-1.507,4.799-4.245,8.32C15.322,19.161,12.928,21,10.97,21c-1.214,0-2.24-1.119-3.079-3.359 c-0.56-2.053-1.119-4.106-1.68-6.159C5.588,9.243,4.921,8.122,4.206,8.122c-0.156,0-0.701,0.328-1.634,0.98L1.594,7.841 c1.027-0.902,2.04-1.805,3.037-2.708C6.001,3.95,7.03,3.327,7.715,3.264c1.619-0.156,2.616,0.951,2.99,3.321 c0.404,2.557,0.685,4.147,0.841,4.769c0.467,2.121,0.981,3.181,1.542,3.181c0.435,0,1.09-0.688,1.963-2.065 c0.871-1.376,1.338-2.422,1.401-3.142c0.125-1.187-0.343-1.782-1.401-1.782c-0.498,0-1.012,0.115-1.541,0.341 c1.023-3.35,2.977-4.977,5.862-4.884C21.511,3.066,22.52,4.453,22.396,7.164z"
-  })
-});
 
 ;// ./node_modules/@wordpress/block-library/build-module/social-link/icons/vk.js
 /**
@@ -55761,13 +55723,6 @@ const social_link_variations_variations = [{
   },
   title: 'Twitter',
   icon: TwitterIcon
-}, {
-  name: 'vimeo',
-  attributes: {
-    service: 'vimeo'
-  },
-  title: 'Vimeo',
-  icon: VimeoIcon
 }, {
   name: 'vk',
   attributes: {

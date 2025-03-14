@@ -202,7 +202,6 @@ function twentyseventeen_social_links_icons() {
 		'tumblr.com'      => 'tumblr',
 		'twitch.tv'       => 'twitch',
 		'twitter.com'     => 'twitter',
-		'vimeo.com'       => 'vimeo',
 		'vine.co'         => 'vine',
 		'vk.com'          => 'vk',
 		'wa.me'           => 'whatsapp',

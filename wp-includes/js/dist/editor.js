@@ -3250,9 +3250,7 @@ const getSuggestedPostFormat = (0,external_wp_data_namespaceObject.createRegistr
     // Check for core/embed `video` and `audio` eligible suggestions.
     if (name === 'core/embed') {
       const provider = blocks[0].attributes?.providerNameSlug;
-      if (['youtube', 'vimeo'].includes(provider)) {
-        name = 'core/video';
-      } else if (['spotify', 'soundcloud'].includes(provider)) {
+      if (['spotify', 'soundcloud'].includes(provider)) {
         name = 'core/audio';
       }
     }

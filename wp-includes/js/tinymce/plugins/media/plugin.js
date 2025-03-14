@@ -469,22 +469,6 @@ var media = (function () {
         allowFullscreen: true
       },
       {
-        regex: /vimeo\.com\/([0-9]+)/,
-        type: 'iframe',
-        w: 425,
-        h: 350,
-        url: '//player.vimeo.com/video/$1?title=0&byline=0&portrait=0&color=8dc7dc',
-        allowFullscreen: true
-      },
-      {
-        regex: /vimeo\.com\/(.*)\/([0-9]+)/,
-        type: 'iframe',
-        w: 425,
-        h: 350,
-        url: '//player.vimeo.com/video/$2?title=0&amp;byline=0',
-        allowFullscreen: true
-      },
-      {
         regex: /maps\.google\.([a-z]{2,3})\/maps\/(.+)msid=(.+)/,
         type: 'iframe',
         w: 425,

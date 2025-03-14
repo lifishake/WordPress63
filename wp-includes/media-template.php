@@ -58,11 +58,10 @@ function wp_underscore_video_template() {
 	?>
 <#  var w_rule = '', classes = [],
 		w, h, settings = wp.media.view.settings,
-		isYouTube = isVimeo = false;
+		isYouTube = false;
 
 	if ( ! _.isEmpty( data.model.src ) ) {
 		isYouTube = data.model.src.match(/youtube|youtu\.be/);
-		isVimeo = -1 !== data.model.src.indexOf('vimeo');
 	}
 
 	if ( settings.contentWidth && data.model.width >= settings.contentWidth ) {
@@ -83,10 +82,6 @@ function wp_underscore_video_template() {
 
 	if ( isYouTube ) {
 		classes.push( 'youtube-video' );
-	}
-
-	if ( isVimeo ) {
-		classes.push( 'vimeo-video' );
 	}
 
 #>
@@ -128,8 +123,6 @@ function wp_underscore_video_template() {
 	<# if ( ! _.isEmpty( data.model.src ) ) {
 		if ( isYouTube ) { #>
 		<source src="{{ data.model.src }}" type="video/youtube" />
-		<# } else if ( isVimeo ) { #>
-		<source src="{{ data.model.src }}" type="video/vimeo" />
 		<# } else { #>
 		<source src="{{ data.model.src }}" type="{{ settings.embedMimes[ data.model.src.split('.').pop() ] }}" />
 		<# }

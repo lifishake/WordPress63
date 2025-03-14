@@ -639,11 +639,8 @@ MediaDetails = AttachmentDisplay.extend(/** @lends wp.media.view.MediaDetails.pr
 
 		src = this.model.get( 'src' );
 
-		if ( src && src.indexOf( 'vimeo' ) > -1 && ! ( 'Vimeo' in window ) ) {
-			this.scriptXhr = $.getScript( 'https://player.vimeo.com/api/player.js', _.bind( this.loadPlayer, this ) );
-		} else {
-			this.loadPlayer();
-		}
+		this.loadPlayer();
+
 	},
 
 	/**
@@ -744,7 +741,7 @@ VideoDetails = MediaDetails.extend(/** @lends wp.media.view.VideoDetails.prototy
 				video.show();
 			}
 
-			if ( ! video.hasClass( 'youtube-video' ) && ! video.hasClass( 'vimeo-video' ) ) {
+			if ( ! video.hasClass( 'youtube-video' ) ) {
 				this.media = MediaDetails.prepareSrc( video.get(0) );
 			} else {
 				this.media = video.get(0);

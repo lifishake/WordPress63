@@ -27,7 +27,7 @@ class WP_Widget_Media_Video extends WP_Widget_Media {
 			'media_video',
 			__( 'Video' ),
 			array(
-				'description' => __( 'Displays a video from the media library or from YouTube, Vimeo, or another provider.' ),
+				'description' => __( 'Displays a video from the media library or from YouTube, or another provider.' ),
 				'mime_type'   => 'video',
 			)
 		);
@@ -48,7 +48,7 @@ class WP_Widget_Media_Video extends WP_Widget_Media {
 				'media_library_state_multi'  => _n_noop( 'Video Widget (%d)', 'Video Widget (%d)' ),
 				'media_library_state_single' => __( 'Video Widget' ),
 				/* translators: %s: A list of valid video file extensions. */
-				'unsupported_file_type'      => sprintf( __( 'Sorry, the video at the supplied URL cannot be loaded. Please check that the URL is for a supported video file (%s) or stream (e.g. YouTube and Vimeo).' ), '<code>.' . implode( '</code>, <code>.', wp_get_video_extensions() ) . '</code>' ),
+				'unsupported_file_type'      => sprintf( __( 'Sorry, the video at the supplied URL cannot be loaded. Please check that the URL is for a supported video file (%s) or stream (e.g. YouTube).' ), '<code>.' . implode( '</code>, <code>.', wp_get_video_extensions() ) . '</code>' ),
 			)
 		);
 	}
@@ -126,10 +126,7 @@ class WP_Widget_Media_Video extends WP_Widget_Media {
 			return;
 		}
 
-		$youtube_pattern = '#^https?://(?:www\.)?(?:youtube\.com/watch|youtu\.be/)#';
-		$vimeo_pattern   = '#^https?://(.+\.)?vimeo\.com/.*#';
-
-		if ( $attachment || preg_match( $youtube_pattern, $src ) || preg_match( $vimeo_pattern, $src ) ) {
+		if ( $attachment ) {
 			add_filter( 'wp_video_shortcode', array( $this, 'inject_video_max_width_style' ) );
 
 			echo wp_video_shortcode(
@@ -175,7 +172,6 @@ class WP_Widget_Media_Video extends WP_Widget_Media {
 		/** This filter is documented in wp-includes/media.php */
 		if ( 'mediaelement' === apply_filters( 'wp_video_shortcode_library', 'mediaelement' ) ) {
 			wp_enqueue_style( 'wp-mediaelement' );
-			wp_enqueue_script( 'mediaelement-vimeo' );
 			wp_enqueue_script( 'wp-mediaelement' );
 		}
 	}

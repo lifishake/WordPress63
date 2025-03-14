@@ -3635,26 +3635,19 @@ function wp_video_shortcode( $attr, $content = '' ) {
 		}
 	}
 
-	$is_vimeo      = false;
 	$is_youtube    = false;
 	$yt_pattern    = '#^https?://(?:www\.)?(?:youtube\.com/watch|youtu\.be/)#';
-	$vimeo_pattern = '#^https?://(.+\.)?vimeo\.com/.*#';
 
 	$primary = false;
 	if ( ! empty( $atts['src'] ) ) {
-		$is_vimeo   = ( preg_match( $vimeo_pattern, $atts['src'] ) );
 		$is_youtube = ( preg_match( $yt_pattern, $atts['src'] ) );
 
-		if ( ! $is_youtube && ! $is_vimeo ) {
+		if ( ! $is_youtube ) {
 			$type = wp_check_filetype( $atts['src'], wp_get_mime_types() );
 
 			if ( ! in_array( strtolower( $type['ext'] ), $default_types, true ) ) {
 				return sprintf( '<a class="wp-embedded-video" href="%s">%s</a>', esc_url( $atts['src'] ), esc_html( $atts['src'] ) );
 			}
-		}
-
-		if ( $is_vimeo ) {
-			wp_enqueue_script( 'mediaelement-vimeo' );
 		}
 
 		$primary = true;
@@ -3696,11 +3689,10 @@ function wp_video_shortcode( $attr, $content = '' ) {
 	if ( 'mediaelement' === $library && did_action( 'init' ) ) {
 		wp_enqueue_style( 'wp-mediaelement' );
 		wp_enqueue_script( 'wp-mediaelement' );
-		wp_enqueue_script( 'mediaelement-vimeo' );
 	}
 
 	/*
-	 * MediaElement.js has issues with some URL formats for Vimeo and YouTube,
+	 * MediaElement.js has issues with some URL formats for YouTube,
 	 * so update the URL to prevent the ME.js player from breaking.
 	 */
 	if ( 'mediaelement' === $library ) {
@@ -3708,14 +3700,6 @@ function wp_video_shortcode( $attr, $content = '' ) {
 			// Remove `feature` query arg and force SSL - see #40866.
 			$atts['src'] = remove_query_arg( 'feature', $atts['src'] );
 			$atts['src'] = set_url_scheme( $atts['src'], 'https' );
-		} elseif ( $is_vimeo ) {
-			// Remove all query arguments and force SSL - see #40866.
-			$parsed_vimeo_url = wp_parse_url( $atts['src'] );
-			$vimeo_src        = 'https://' . $parsed_vimeo_url['host'] . $parsed_vimeo_url['path'];
-
-			// Add loop param for mejs bug - see #40977, not needed after #39686.
-			$loop        = $atts['loop'] ? '1' : '0';
-			$atts['src'] = add_query_arg( 'loop', $loop, $vimeo_src );
 		}
 	}
 
@@ -3772,8 +3756,6 @@ function wp_video_shortcode( $attr, $content = '' ) {
 			}
 			if ( 'src' === $fallback && $is_youtube ) {
 				$type = array( 'type' => 'video/youtube' );
-			} elseif ( 'src' === $fallback && $is_vimeo ) {
-				$type = array( 'type' => 'video/vimeo' );
 			} else {
 				$type = wp_check_filetype( $atts[ $fallback ], wp_get_mime_types() );
 			}
