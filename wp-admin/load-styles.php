@@ -48,7 +48,6 @@ if ( empty( $load ) ) {
 	exit;
 }
 
-$rtl            = ( isset( $_GET['dir'] ) && 'rtl' === $_GET['dir'] );
 $expires_offset = 31536000; // 1 year.
 $out            = '';
 
@@ -74,11 +73,6 @@ foreach ( $load as $handle ) {
 	}
 
 	$path = ABSPATH . $style->src;
-
-	if ( $rtl && ! empty( $style->extra['rtl'] ) ) {
-		// All default styles have fully independent RTL files.
-		$path = str_replace( '.min.css', '-rtl.min.css', $path );
-	}
 
 	$content = get_file( $path ) . "\n";
 

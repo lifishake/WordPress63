@@ -57,9 +57,6 @@ $step = isset( $_GET['step'] ) ? (int) $_GET['step'] : 0;
  */
 function display_header( $body_classes = '' ) {
 	header( 'Content-Type: text/html; charset=utf-8' );
-	if ( is_rtl() ) {
-		$body_classes .= 'rtl';
-	}
 	if ( $body_classes ) {
 		$body_classes = ' ' . $body_classes;
 	}

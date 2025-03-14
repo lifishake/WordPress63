@@ -217,7 +217,7 @@ function get_default_block_editor_settings() {
 		'allowedMimeTypes'                 => get_allowed_mime_types(),
 		'defaultEditorStyles'              => $default_editor_styles,
 		'blockCategories'                  => get_default_block_categories(),
-		'isRTL'                            => is_rtl(),
+		'isRTL'                            => false,
 		'imageDefaultSize'                 => $image_default_size,
 		'imageDimensions'                  => $image_dimensions,
 		'imageEditing'                     => true,

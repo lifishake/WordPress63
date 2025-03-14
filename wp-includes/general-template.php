@@ -905,11 +905,7 @@ function get_bloginfo( $show = '', $filter = 'raw' ) {
 					'<code>is_rtl()</code>'
 				)
 			);
-			if ( function_exists( 'is_rtl' ) ) {
-				$output = is_rtl() ? 'rtl' : 'ltr';
-			} else {
-				$output = 'ltr';
-			}
+			$output = 'ltr';
 			break;
 		case 'name':
 		default:
@@ -4373,11 +4369,6 @@ function the_search_query() {
  */
 function get_language_attributes( $doctype = 'html' ) {
 	$attributes = array();
-
-	if ( function_exists( 'is_rtl' ) && is_rtl() ) {
-		$attributes[] = 'dir="rtl"';
-	}
-
 	$lang = get_bloginfo( 'language' );
 	if ( $lang ) {
 		if ( 'text/html' === get_option( 'html_type' ) || 'html' === $doctype ) {
@@ -4731,7 +4722,7 @@ function wp_admin_css_color( $key, $name, $url, $colors = array(), $icons = arra
  * @since 3.0.0
  */
 function register_admin_color_schemes() {
-	$suffix  = is_rtl() ? '-rtl' : '';
+	$suffix  = '';
 	$suffix .= SCRIPT_DEBUG ? '' : '.min';
 
 	wp_admin_css_color(
@@ -4924,16 +4915,6 @@ function wp_admin_css( $file = 'wp-admin', $force_echo = false ) {
 	 *                                relative to wp-admin/. Defaults to 'wp-admin'.
 	 */
 	echo apply_filters( 'wp_admin_css', $stylesheet_link, $file );
-
-	if ( function_exists( 'is_rtl' ) && is_rtl() ) {
-		$rtl_stylesheet_link = sprintf(
-			"<link rel='stylesheet' href='%s' type='text/css' />\n",
-			esc_url( wp_admin_css_uri( "$file-rtl" ) )
-		);
-
-		/** This filter is documented in wp-includes/general-template.php */
-		echo apply_filters( 'wp_admin_css', $rtl_stylesheet_link, "$file-rtl" );
-	}
 }
 
 /**

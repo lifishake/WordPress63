@@ -399,7 +399,7 @@ class WP_Locale {
 	 * @return bool Whether locale is RTL.
 	 */
 	public function is_rtl() {
-		return 'rtl' === $this->text_direction;
+		return false;
 	}
 
 	/**

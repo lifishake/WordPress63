@@ -257,7 +257,7 @@ XSL;
 	 * @return string The CSS.
 	 */
 	public function get_stylesheet_css() {
-		$text_align = is_rtl() ? 'right' : 'left';
+		$text_align = 'left';
 
 		$css = <<<EOF
 

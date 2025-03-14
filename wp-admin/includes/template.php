@@ -2149,7 +2149,7 @@ var ajaxurl = '<?php echo esc_js( admin_url( 'admin-ajax.php', 'relative' ) ); ?
 	adminpage = '<?php echo esc_js( $admin_body_class ); ?>',
 	thousandsSeparator = '<?php echo esc_js( $wp_locale->number_format['thousands_sep'] ); ?>',
 	decimalPoint = '<?php echo esc_js( $wp_locale->number_format['decimal_point'] ); ?>',
-	isRtl = <?php echo (int) is_rtl(); ?>;
+	isRtl = <?php echo 0; ?>;
 </script>
 	<?php
 	/** This action is documented in wp-admin/admin-header.php */
@@ -2174,10 +2174,6 @@ var ajaxurl = '<?php echo esc_js( admin_url( 'admin-ajax.php', 'relative' ) ); ?
 	do_action( 'admin_head' );
 
 	$admin_body_class .= ' locale-' . sanitize_html_class( strtolower( str_replace( '_', '-', get_user_locale() ) ) );
-
-	if ( is_rtl() ) {
-		$admin_body_class .= ' rtl';
-	}
 
 	?>
 </head>

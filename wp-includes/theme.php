@@ -2164,11 +2164,6 @@ function wp_update_custom_css_post( $css, $args = array() ) {
  * the theme root. It also accepts an array of stylesheets.
  * It is optional and defaults to 'editor-style.css'.
  *
- * This function automatically adds another stylesheet with -rtl prefix, e.g. editor-style-rtl.css.
- * If that file doesn't exist, it is removed before adding the stylesheet(s) to TinyMCE.
- * If an array of stylesheets is passed to add_editor_style(),
- * RTL is only added for the first stylesheet.
- *
  * Since version 3.4 the TinyMCE body has .rtl CSS class.
  * It is a better option to use that class and add any RTL styles to the main stylesheet.
  *
@@ -2186,11 +2181,6 @@ function add_editor_style( $stylesheet = 'editor-style.css' ) {
 
 	$editor_styles = (array) $editor_styles;
 	$stylesheet    = (array) $stylesheet;
-
-	if ( is_rtl() ) {
-		$rtl_stylesheet = str_replace( '.css', '-rtl.css', $stylesheet[0] );
-		$stylesheet[]   = $rtl_stylesheet;
-	}
 
 	$editor_styles = array_merge( $editor_styles, $stylesheet );
 }

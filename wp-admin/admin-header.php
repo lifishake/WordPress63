@@ -104,7 +104,7 @@ var ajaxurl = '<?php echo esc_js( admin_url( 'admin-ajax.php', 'relative' ) ); ?
 	adminpage = '<?php echo esc_js( $admin_body_class ); ?>',
 	thousandsSeparator = '<?php echo esc_js( $wp_locale->number_format['thousands_sep'] ); ?>',
 	decimalPoint = '<?php echo esc_js( $wp_locale->number_format['decimal_point'] ); ?>',
-	isRtl = <?php echo (int) is_rtl(); ?>;
+	isRtl = <?php echo 0; ?>;
 </script>
 <?php
 
@@ -172,10 +172,6 @@ if ( ! get_user_setting( 'unfold' ) ) {
 
 if ( is_admin_bar_showing() ) {
 	$admin_body_class .= ' admin-bar';
-}
-
-if ( is_rtl() ) {
-	$admin_body_class .= ' rtl';
 }
 
 if ( $current_screen->post_type ) {

@@ -1551,7 +1551,7 @@ function wp_default_styles( $styles ) {
 	$styles->base_url        = $guessurl;
 	$styles->content_url     = defined( 'WP_CONTENT_URL' ) ? WP_CONTENT_URL : '';
 	$styles->default_version = get_bloginfo( 'version' );
-	$styles->text_direction  = function_exists( 'is_rtl' ) && is_rtl() ? 'rtl' : 'ltr';
+	$styles->text_direction  = 'ltr';
 	$styles->default_dirs    = array( '/wp-admin/', '/wp-includes/css/' );
 
 	// Open Sans is no longer used by core, but may be relied upon by themes and plugins.
@@ -1980,7 +1980,7 @@ function wp_localize_jquery_ui_datepicker() {
 			'dayNamesMin'     => array_values( $wp_locale->weekday_initial ),
 			'dateFormat'      => $datepicker_date_format,
 			'firstDay'        => absint( get_option( 'start_of_week' ) ),
-			'isRTL'           => $wp_locale->is_rtl(),
+			'isRTL'           => false,
 		)
 	);
 
@@ -2047,7 +2047,7 @@ function wp_localize_community_events() {
  * @global array $_wp_admin_css_colors
  *
  * @param string $src    Source URL.
- * @param string $handle Either 'colors' or 'colors-rtl'.
+ * @param string $handle Either 'colors' .
  * @return string|false URL path to CSS stylesheet for Administration Screens.
  */
 function wp_style_loader_src( $src, $handle ) {
@@ -3234,18 +3234,6 @@ function wp_enqueue_block_style( $block_name, $args ) {
 		// Add `path` data if provided.
 		if ( isset( $args['path'] ) ) {
 			wp_style_add_data( $args['handle'], 'path', $args['path'] );
-
-			// Get the RTL file path.
-			$rtl_file_path = str_replace( '.css', '-rtl.css', $args['path'] );
-
-			// Add RTL stylesheet.
-			if ( file_exists( $rtl_file_path ) ) {
-				wp_style_add_data( $args['handle'], 'rtl', 'replace' );
-
-				if ( is_rtl() ) {
-					wp_style_add_data( $args['handle'], 'path', $rtl_file_path );
-				}
-			}
 		}
 
 		// Enqueue the stylesheet.

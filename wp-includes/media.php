@@ -2818,7 +2818,7 @@ function gallery_shortcode( $attr ) {
 
 	$columns   = (int) $atts['columns'];
 	$itemwidth = $columns > 0 ? floor( 100 / $columns ) : 100;
-	$float     = is_rtl() ? 'right' : 'left';
+	$float     = 'left';
 
 	$selector = "gallery-{$instance}";
 

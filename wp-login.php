@@ -168,10 +168,6 @@ function login_header( $title = null, $message = '', $wp_error = null ) {
 
 	$classes = array( 'login-action-' . $action, 'wp-core-ui' );
 
-	if ( is_rtl() ) {
-		$classes[] = 'rtl';
-	}
-
 	if ( $interim_login ) {
 		$classes[] = 'interim-login';
 

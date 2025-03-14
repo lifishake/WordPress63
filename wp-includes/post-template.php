@@ -638,10 +638,6 @@ function get_body_class( $css_class = '' ) {
 
 	$classes = array();
 
-	if ( is_rtl() ) {
-		$classes[] = 'rtl';
-	}
-
 	if ( is_front_page() ) {
 		$classes[] = 'home';
 	}

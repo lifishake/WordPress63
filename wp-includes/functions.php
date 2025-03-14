@@ -3881,17 +3881,7 @@ function _default_wp_die_handler( $message, $title = '', $args = array() ) {
 		}
 
 		$text_direction = $parsed_args['text_direction'];
-		$dir_attr       = "dir='$text_direction'";
-
-		/*
-		 * If `text_direction` was not explicitly passed,
-		 * use get_language_attributes() if available.
-		 */
-		if ( empty( $args['text_direction'] )
-			&& function_exists( 'language_attributes' ) && function_exists( 'is_rtl' )
-		) {
-			$dir_attr = get_language_attributes();
-		}
+		$dir_attr       = "dir='ltr'";
 		?>
 <!DOCTYPE html>
 <html <?php echo $dir_attr; ?>>
@@ -4341,13 +4331,7 @@ function _wp_die_process_input( $message, $title = '', $args = array() ) {
 	if ( empty( $title ) ) {
 		$title = $have_gettext ? __( 'WordPress &rsaquo; Error' ) : 'WordPress &rsaquo; Error';
 	}
-	if ( empty( $args['text_direction'] ) || ! in_array( $args['text_direction'], array( 'ltr', 'rtl' ), true ) ) {
-		$args['text_direction'] = 'ltr';
-		if ( function_exists( 'is_rtl' ) && is_rtl() ) {
-			$args['text_direction'] = 'rtl';
-		}
-	}
-
+	$args['text_direction'] = 'ltr';
 	if ( ! empty( $args['charset'] ) ) {
 		$args['charset'] = _canonical_charset( $args['charset'] );
 	}
@@ -4735,40 +4719,6 @@ function _config_wp_siteurl( $url = '' ) {
  */
 function _delete_option_fresh_site() {
 	update_option( 'fresh_site', '0', false );
-}
-
-/**
- * Sets the localized direction for MCE plugin.
- *
- * Will only set the direction to 'rtl', if the WordPress locale has
- * the text direction set to 'rtl'.
- *
- * Fills in the 'directionality' setting, enables the 'directionality'
- * plugin, and adds the 'ltr' button to 'toolbar1', formerly
- * 'theme_advanced_buttons1' array keys. These keys are then returned
- * in the $mce_init (TinyMCE settings) array.
- *
- * @since 2.1.0
- * @access private
- *
- * @param array $mce_init MCE settings array.
- * @return array Direction set for 'rtl', if needed by locale.
- */
-function _mce_set_direction( $mce_init ) {
-	if ( is_rtl() ) {
-		$mce_init['directionality'] = 'rtl';
-		$mce_init['rtl_ui']         = true;
-
-		if ( ! empty( $mce_init['plugins'] ) && ! str_contains( $mce_init['plugins'], 'directionality' ) ) {
-			$mce_init['plugins'] .= ',directionality';
-		}
-
-		if ( ! empty( $mce_init['toolbar1'] ) && ! preg_match( '/\bltr\b/', $mce_init['toolbar1'] ) ) {
-			$mce_init['toolbar1'] .= ',ltr';
-		}
-	}
-
-	return $mce_init;
 }
 
 /**

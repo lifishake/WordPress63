@@ -942,10 +942,6 @@ final class _WP_Editors {
 			$settings['indent']      = true;
 			$settings['elementpath'] = false;
 
-			if ( is_rtl() ) {
-				$settings['directionality'] = 'rtl';
-			}
-
 			/*
 			 * In production all plugins are loaded (they are in wp-editor.js.gz).
 			 * The 'wpview', 'wpdialogs', and 'media' TinyMCE plugins are not initialized by default.
@@ -1496,11 +1492,6 @@ final class _WP_Editors {
 			if ( str_contains( $value, '&' ) ) {
 				$mce_translation[ $key ] = html_entity_decode( $value, ENT_QUOTES, 'UTF-8' );
 			}
-		}
-
-		// Set direction.
-		if ( is_rtl() ) {
-			$mce_translation['_dir'] = 'rtl';
 		}
 
 		if ( $json_only ) {

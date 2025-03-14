@@ -249,35 +249,7 @@ class WP_Styles extends WP_Dependencies {
 		 * @param string $media  The stylesheet's media attribute.
 		 */
 		$tag = apply_filters( 'style_loader_tag', $tag, $handle, $href, $media );
-
-		if ( 'rtl' === $this->text_direction && isset( $obj->extra['rtl'] ) && $obj->extra['rtl'] ) {
-			if ( is_bool( $obj->extra['rtl'] ) || 'replace' === $obj->extra['rtl'] ) {
-				$suffix   = isset( $obj->extra['suffix'] ) ? $obj->extra['suffix'] : '';
-				$rtl_href = str_replace( "{$suffix}.css", "-rtl{$suffix}.css", $this->_css_href( $src, $ver, "$handle-rtl" ) );
-			} else {
-				$rtl_href = $this->_css_href( $obj->extra['rtl'], $ver, "$handle-rtl" );
-			}
-
-			$rtl_tag = sprintf(
-				"<link rel='%s' id='%s-rtl-css'%s href='%s'%s media='%s' />\n",
-				$rel,
-				$handle,
-				$title,
-				$rtl_href,
-				$this->type_attr,
-				$media
-			);
-
-			/** This filter is documented in wp-includes/class-wp-styles.php */
-			$rtl_tag = apply_filters( 'style_loader_tag', $rtl_tag, $handle, $rtl_href, $media );
-
-			if ( 'replace' === $obj->extra['rtl'] ) {
-				$tag = $rtl_tag;
-			} else {
-				$tag .= $rtl_tag;
-			}
-		}
-
+		
 		if ( $this->do_concat ) {
 			$this->print_html .= $ie_conditional_prefix;
 			$this->print_html .= $tag;

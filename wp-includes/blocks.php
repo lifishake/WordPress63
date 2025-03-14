@@ -341,18 +341,6 @@ function register_block_style_handle( $metadata, $field_name, $index = 0 ) {
 
 	if ( $style_uri ) {
 		wp_style_add_data( $style_handle_name, 'path', $style_path_norm );
-
-		if ( $is_core_block ) {
-			$rtl_file = str_replace( "{$suffix}.css", "-rtl{$suffix}.css", $style_path_norm );
-		} else {
-			$rtl_file = str_replace( '.css', '-rtl.css', $style_path_norm );
-		}
-
-		if ( is_rtl() && file_exists( $rtl_file ) ) {
-			wp_style_add_data( $style_handle_name, 'rtl', 'replace' );
-			wp_style_add_data( $style_handle_name, 'suffix', $suffix );
-			wp_style_add_data( $style_handle_name, 'path', $rtl_file );
-		}
 	}
 
 	return $style_handle_name;

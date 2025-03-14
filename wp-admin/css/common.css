@@ -2673,10 +2673,6 @@ div.star-holder .star-rating {
 	content: "\f459";
 }
 
-.rtl .star-rating .star-half {
-	transform: rotateY(180deg);
-}
-
 .star-rating .star-empty:before {
 	content: "\f154";
 }
