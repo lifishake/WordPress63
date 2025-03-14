@@ -73,10 +73,6 @@ function wp_dashboard_setup() {
 		wp_add_dashboard_widget( 'dashboard_right_now', __( 'At a Glance' ), 'wp_dashboard_right_now' );
 	}
 
-	if ( is_network_admin() ) {
-		wp_add_dashboard_widget( 'network_dashboard_right_now', __( 'Right Now' ), 'wp_network_dashboard_right_now' );
-	}
-
 	// Activity Widget.
 	if ( is_blog_admin() ) {
 		wp_add_dashboard_widget( 'dashboard_activity', __( 'Activity' ), 'wp_dashboard_site_activity' );
@@ -436,95 +432,6 @@ function wp_dashboard_right_now() {
 	</div>
 		<?php
 	endif;
-}
-
-/**
- * @since 3.1.0
- */
-function wp_network_dashboard_right_now() {
-	$actions = array();
-
-	if ( current_user_can( 'create_sites' ) ) {
-		$actions['create-site'] = '<a href="' . network_admin_url( 'site-new.php' ) . '">' . __( 'Create a New Site' ) . '</a>';
-	}
-	if ( current_user_can( 'create_users' ) ) {
-		$actions['create-user'] = '<a href="' . network_admin_url( 'user-new.php' ) . '">' . __( 'Create a New User' ) . '</a>';
-	}
-
-	$c_users = get_user_count();
-	$c_blogs = get_blog_count();
-
-	/* translators: %s: Number of users on the network. */
-	$user_text = sprintf( _n( '%s user', '%s users', $c_users ), number_format_i18n( $c_users ) );
-	/* translators: %s: Number of sites on the network. */
-	$blog_text = sprintf( _n( '%s site', '%s sites', $c_blogs ), number_format_i18n( $c_blogs ) );
-
-	/* translators: 1: Text indicating the number of sites on the network, 2: Text indicating the number of users on the network. */
-	$sentence = sprintf( __( 'You have %1$s and %2$s.' ), $blog_text, $user_text );
-
-	if ( $actions ) {
-		echo '<ul class="subsubsub">';
-		foreach ( $actions as $class => $action ) {
-			$actions[ $class ] = "\t<li class='$class'>$action";
-		}
-		echo implode( " |</li>\n", $actions ) . "</li>\n";
-		echo '</ul>';
-	}
-	?>
-	<br class="clear" />
-
-	<p class="youhave"><?php echo $sentence; ?></p>
-
-
-	<?php
-		/**
-		 * Fires in the Network Admin 'Right Now' dashboard widget
-		 * just before the user and site search form fields.
-		 *
-		 * @since MU (3.0.0)
-		 */
-		do_action( 'wpmuadminresult' );
-	?>
-
-	<form action="<?php echo esc_url( network_admin_url( 'users.php' ) ); ?>" method="get">
-		<p>
-			<label class="screen-reader-text" for="search-users">
-				<?php
-				/* translators: Hidden accessibility text. */
-				_e( 'Search Users' );
-				?>
-			</label>
-			<input type="search" name="s" value="" size="30" autocomplete="off" id="search-users" />
-			<?php submit_button( __( 'Search Users' ), '', false, false, array( 'id' => 'submit_users' ) ); ?>
-		</p>
-	</form>
-
-	<form action="<?php echo esc_url( network_admin_url( 'sites.php' ) ); ?>" method="get">
-		<p>
-			<label class="screen-reader-text" for="search-sites">
-				<?php
-				/* translators: Hidden accessibility text. */
-				_e( 'Search Sites' );
-				?>
-			</label>
-			<input type="search" name="s" value="" size="30" autocomplete="off" id="search-sites" />
-			<?php submit_button( __( 'Search Sites' ), '', false, false, array( 'id' => 'submit_sites' ) ); ?>
-		</p>
-	</form>
-	<?php
-	/**
-	 * Fires at the end of the 'Right Now' widget in the Network Admin dashboard.
-	 *
-	 * @since MU (3.0.0)
-	 */
-	do_action( 'mu_rightnow_end' );
-
-	/**
-	 * Fires at the end of the 'Right Now' widget in the Network Admin dashboard.
-	 *
-	 * @since MU (3.0.0)
-	 */
-	do_action( 'mu_activity_box_end' );
 }
 
 /**
