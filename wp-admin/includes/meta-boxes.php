@@ -1521,33 +1521,6 @@ function post_thumbnail_meta_box( $post ) {
 }
 
 /**
- * Displays fields for ID3 data.
- *
- * @since 3.9.0
- *
- * @param WP_Post $post Current post object.
- */
-function attachment_id3_data_meta_box( $post ) {
-	$meta = array();
-	if ( ! empty( $post->ID ) ) {
-		$meta = wp_get_attachment_metadata( $post->ID );
-	}
-
-	foreach ( wp_get_attachment_id3_keys( $post, 'edit' ) as $key => $label ) :
-		$value = '';
-		if ( ! empty( $meta[ $key ] ) ) {
-			$value = $meta[ $key ];
-		}
-		?>
-	<p>
-		<label for="title"><?php echo $label; ?></label><br />
-		<input type="text" name="id3_<?php echo esc_attr( $key ); ?>" id="id3_<?php echo esc_attr( $key ); ?>" class="large-text" value="<?php echo esc_attr( $value ); ?>" />
-	</p>
-		<?php
-	endforeach;
-}
-
-/**
  * Registers the default post meta boxes, and runs the `do_meta_boxes` actions.
  *
  * @since 5.0.0
@@ -1589,10 +1562,6 @@ function register_and_do_post_meta_boxes( $post ) {
 		wp_enqueue_style( 'imgareaselect' );
 		add_meta_box( 'submitdiv', __( 'Save' ), 'attachment_submit_meta_box', null, 'side', 'core', array( '__back_compat_meta_box' => true ) );
 		add_action( 'edit_form_after_title', 'edit_form_image_editor' );
-
-		if ( wp_attachment_is( 'audio', $post ) ) {
-			add_meta_box( 'attachment-id3', __( 'Metadata' ), 'attachment_id3_data_meta_box', null, 'normal', 'core', array( '__back_compat_meta_box' => true ) );
-		}
 	} else {
 		add_meta_box( 'submitdiv', __( 'Publish' ), 'post_submit_meta_box', null, 'side', 'core', $publish_callback_args );
 	}
