@@ -12,7 +12,6 @@ add_action( 'admin_page_access_denied', 'wp_link_manager_disabled_message' );
 
 // Dashboard hooks.
 add_action( 'activity_box_end', 'wp_dashboard_quota' );
-add_action( 'welcome_panel', 'wp_welcome_panel' );
 
 // Media hooks.
 add_action( 'attachment_submitbox_misc_actions', 'attachment_submitbox_metadata' );
