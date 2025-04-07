@@ -17,8 +17,6 @@ require_once __DIR__ . '/admin.php';
 
 require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
-wp_enqueue_script( 'wp-a11y' );
-
 if ( isset( $_GET['action'] ) ) {
 	$plugin = isset( $_REQUEST['plugin'] ) ? trim( $_REQUEST['plugin'] ) : '';
 	$theme  = isset( $_REQUEST['theme'] ) ? urldecode( $_REQUEST['theme'] ) : '';
