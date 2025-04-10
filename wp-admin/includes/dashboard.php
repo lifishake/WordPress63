@@ -1031,20 +1031,6 @@ function wp_dashboard_recent_comments( $total_items = 5 ) {
 	return true;
 }
 
-/**
- * Display generic dashboard RSS widget feed.
- *
- * @since 2.5.0
- *
- * @param string $widget_id
- */
-function wp_dashboard_rss_output( $widget_id ) {
-	$widgets = get_option( 'dashboard_widget_options' );
-	echo '<div class="rss-widget">';
-	wp_widget_rss_output( $widgets[ $widget_id ] );
-	echo '</div>';
-}
-
 //
 // Dashboard Widgets Controls.
 //
@@ -1074,58 +1060,6 @@ function wp_dashboard_trigger_widget_control( $widget_control_id = false ) {
 			)
 		);
 	}
-}
-
-/**
- * Sets up the RSS dashboard widget control and $args to be used as input to wp_widget_rss_form().
- *
- * Handles POST data from RSS-type widgets.
- *
- * @since 2.5.0
- *
- * @param string $widget_id
- * @param array  $form_inputs
- */
-function wp_dashboard_rss_control( $widget_id, $form_inputs = array() ) {
-	$widget_options = get_option( 'dashboard_widget_options' );
-
-	if ( ! $widget_options ) {
-		$widget_options = array();
-	}
-
-	if ( ! isset( $widget_options[ $widget_id ] ) ) {
-		$widget_options[ $widget_id ] = array();
-	}
-
-	$number = 1; // Hack to use wp_widget_rss_form().
-
-	$widget_options[ $widget_id ]['number'] = $number;
-
-	if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['widget-rss'][ $number ] ) ) {
-		$_POST['widget-rss'][ $number ]         = wp_unslash( $_POST['widget-rss'][ $number ] );
-		$widget_options[ $widget_id ]           = wp_widget_rss_process( $_POST['widget-rss'][ $number ] );
-		$widget_options[ $widget_id ]['number'] = $number;
-
-		// Title is optional. If black, fill it if possible.
-		if ( ! $widget_options[ $widget_id ]['title'] && isset( $_POST['widget-rss'][ $number ]['title'] ) ) {
-			$rss = fetch_feed( $widget_options[ $widget_id ]['url'] );
-			if ( is_wp_error( $rss ) ) {
-				$widget_options[ $widget_id ]['title'] = htmlentities( __( 'Unknown Feed' ) );
-			} else {
-				$widget_options[ $widget_id ]['title'] = htmlentities( strip_tags( $rss->get_title() ) );
-				$rss->__destruct();
-				unset( $rss );
-			}
-		}
-
-		update_option( 'dashboard_widget_options', $widget_options, false );
-
-		$locale    = get_user_locale();
-		$cache_key = 'dash_v2_' . md5( $widget_id . '_' . $locale );
-		delete_transient( $cache_key );
-	}
-
-	wp_widget_rss_form( $widget_options[ $widget_id ], $form_inputs );
 }
 
 /**
