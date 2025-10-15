@@ -85,22 +85,7 @@ function wp_dashboard_setup() {
 	}
 
 	if ( is_network_admin() ) {
-
-		/**
-		 * Fires after core widgets for the Network Admin dashboard have been registered.
-		 *
-		 * @since 3.1.0
-		 */
-		do_action( 'wp_network_dashboard_setup' );
-
-		/**
-		 * Filters the list of widgets to load for the Network Admin dashboard.
-		 *
-		 * @since 3.1.0
-		 *
-		 * @param string[] $dashboard_widgets An array of dashboard widget IDs.
-		 */
-		$dashboard_widgets = apply_filters( 'wp_network_dashboard_widgets', array() );
+		die();
 	} elseif ( is_user_admin() ) {
 
 		/**

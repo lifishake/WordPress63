@@ -1005,10 +1005,7 @@ function wp_get_plugin_action_button( $name, $data, $compatible_php, $compatible
 						);
 
 						if ( is_network_admin() ) {
-							$button_text = _x( 'Network Activate', 'plugin' );
-							/* translators: %s: Plugin name. */
-							$button_label = _x( 'Network Activate %s', 'plugin' );
-							$activate_url = add_query_arg( array( 'networkwide' => 1 ), $activate_url );
+							die();
 						}
 
 						$button = sprintf(

@@ -3889,9 +3889,9 @@ function user_admin_url( $path = '', $scheme = 'admin' ) {
  */
 function self_admin_url( $path = '', $scheme = 'admin' ) {
 	if ( is_network_admin() ) {
-		$url = network_admin_url( $path, $scheme );
+		$url = '';
 	} elseif ( is_user_admin() ) {
-		$url = user_admin_url( $path, $scheme );
+		$url = '';
 	} else {
 		$url = admin_url( $path, $scheme );
 	}

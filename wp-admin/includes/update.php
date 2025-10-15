@@ -497,12 +497,11 @@ function wp_plugin_update_row( $file, $plugin_data ) {
 		)
 	);
 
-	if ( is_network_admin() || ! is_multisite() ) {
-		if ( is_network_admin() ) {
-			$active_class = is_plugin_active_for_network( $file ) ? ' active' : '';
-		} else {
-			$active_class = is_plugin_active( $file ) ? ' active' : '';
-		}
+	if (is_network_admin()){
+		die();
+	}
+	if ( ! is_multisite() ) {
+		$active_class = is_plugin_active( $file ) ? ' active' : '';
 
 		$requires_php   = isset( $response->requires_php ) ? $response->requires_php : null;
 		$compatible_php = is_php_version_compatible( $requires_php );

@@ -150,11 +150,7 @@ class Theme_Installer_Skin extends WP_Upgrader_Skin {
 		);
 
 		if ( is_network_admin() && current_user_can( 'manage_network_themes' ) ) {
-			$install_actions['network_enable'] = sprintf(
-				'<a href="%s" target="_parent">%s</a>',
-				esc_url( wp_nonce_url( 'themes.php?action=enable&amp;theme=' . urlencode( $stylesheet ), 'enable-theme_' . $stylesheet ) ),
-				__( 'Network Enable' )
-			);
+			die();
 		}
 
 		if ( 'web' === $this->type ) {
@@ -171,7 +167,7 @@ class Theme_Installer_Skin extends WP_Upgrader_Skin {
 			);
 		}
 
-		if ( ! $this->result || is_wp_error( $this->result ) || is_network_admin() || ! current_user_can( 'switch_themes' ) ) {
+		if ( ! $this->result || is_wp_error( $this->result ) || ! current_user_can( 'switch_themes' ) ) {
 			unset( $install_actions['activate'], $install_actions['preview'] );
 		} elseif ( get_option( 'template' ) === $stylesheet ) {
 			unset( $install_actions['activate'] );

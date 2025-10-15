@@ -9,7 +9,7 @@
  * @package WordPress
  * @subpackage Administration
  */
-
+die();
 define( 'WP_INSTALLING_NETWORK', true );
 
 /** WordPress Administration Bootstrap */

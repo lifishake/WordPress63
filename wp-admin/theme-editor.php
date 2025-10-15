@@ -9,9 +9,8 @@
 /** WordPress Administration Bootstrap */
 require_once __DIR__ . '/admin.php';
 
-if ( is_multisite() && ! is_network_admin() ) {
-	wp_redirect( network_admin_url( 'theme-editor.php' ) );
-	exit;
+if ( is_multisite() ) {
+	wp_die( '<p>' . __( 'Sorry, you are not allowed to edit templates for this site.' ) . '</p>' );
 }
 
 if ( ! current_user_can( 'edit_themes' ) ) {

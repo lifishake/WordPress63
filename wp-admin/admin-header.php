@@ -37,10 +37,10 @@ $title = strip_tags( $title );
 
 if ( is_network_admin() ) {
 	/* translators: Network admin screen title. %s: Network title. */
-	$admin_title = sprintf( __( 'Network Admin: %s' ), get_network()->site_name );
+	die();
 } elseif ( is_user_admin() ) {
 	/* translators: User dashboard screen title. %s: Network title. */
-	$admin_title = sprintf( __( 'User Dashboard: %s' ), get_network()->site_name );
+	die();
 } else {
 	$admin_title = get_bloginfo( 'name' );
 }
@@ -282,14 +282,14 @@ if ( is_network_admin() ) {
 	 *
 	 * @since 3.1.0
 	 */
-	do_action( 'network_admin_notices' );
+	die();
 } elseif ( is_user_admin() ) {
 	/**
 	 * Prints user admin screen notices.
 	 *
 	 * @since 3.1.0
 	 */
-	do_action( 'user_admin_notices' );
+	die();
 } else {
 	/**
 	 * Prints admin screen notices.

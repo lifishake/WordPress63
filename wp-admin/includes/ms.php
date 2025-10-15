@@ -839,21 +839,6 @@ function can_edit_network( $network_id ) {
 }
 
 /**
- * Prints thickbox image paths for Network Admin.
- *
- * @since 3.1.0
- *
- * @access private
- */
-function _thickbox_path_admin_subfolder() {
-	?>
-<script type="text/javascript">
-var tb_pathToImage = "<?php echo esc_js( includes_url( 'js/thickbox/loadingAnimation.gif', 'relative' ) ); ?>";
-</script>
-	<?php
-}
-
-/**
  * @param array $users
  * @return bool
  */

@@ -123,26 +123,16 @@ function wp_admin_bar_render() {
  * @param WP_Admin_Bar $wp_admin_bar The WP_Admin_Bar instance.
  */
 function wp_admin_bar_wp_menu( $wp_admin_bar ) {
-	if ( current_user_can( 'read' ) ) {
-		$about_url      = self_admin_url( 'about.php' );
-		$contribute_url = self_admin_url( 'contribute.php' );
-	} elseif ( is_multisite() ) {
-		$about_url      = get_dashboard_url( get_current_user_id(), 'about.php' );
-		$contribute_url = get_dashboard_url( get_current_user_id(), 'contribute.php' );
-	} else {
-		$about_url      = false;
-		$contribute_url = false;
-	}
+
+	$about_url      = false;
+	$contribute_url = false;
 
 	$wp_logo_menu_args = array(
 		'id'    => 'wp-logo',
-		'title' => '<span class="ab-icon" aria-hidden="true"></span><span class="screen-reader-text">' .
-				/* translators: Hidden accessibility text. */
-				__( 'About WordPress' ) .
-			'</span>',
-		'href'  => $about_url,
+		'title' => '<span class="ab-icon" aria-hidden="true"></span>',
+		'href'  => 'https://wordpress.org/',
 		'meta'  => array(
-			'menu_title' => __( 'About WordPress' ),
+			'menu_title' => 'About WordPress',
 		),
 	);
 
@@ -155,79 +145,16 @@ function wp_admin_bar_wp_menu( $wp_admin_bar ) {
 
 	$wp_admin_bar->add_node( $wp_logo_menu_args );
 
-	if ( $about_url ) {
-		// Add "About WordPress" link.
-		$wp_admin_bar->add_node(
-			array(
-				'parent' => 'wp-logo',
-				'id'     => 'about',
-				'title'  => __( 'About WordPress' ),
-				'href'   => $about_url,
-			)
-		);
-	}
-
-	if ( $contribute_url ) {
-		// Add contribute link.
-		$wp_admin_bar->add_node(
-			array(
-				'parent' => 'wp-logo',
-				'id'     => 'contribute',
-				'title'  => __( 'Get Involved' ),
-				'href'   => $contribute_url,
-			)
-		);
-	}
-
 	// Add WordPress.org link.
 	$wp_admin_bar->add_node(
 		array(
 			'parent' => 'wp-logo-external',
 			'id'     => 'wporg',
-			'title'  => __( 'WordPress.org' ),
-			'href'   => __( 'https://wordpress.org/' ),
+			'title'  => 'WordPress.org',
+			'href'   => 'https://wordpress.org/' ,
 		)
 	);
 
-	// Add documentation link.
-	$wp_admin_bar->add_node(
-		array(
-			'parent' => 'wp-logo-external',
-			'id'     => 'documentation',
-			'title'  => __( 'Documentation' ),
-			'href'   => __( 'https://wordpress.org/documentation/' ),
-		)
-	);
-
-	// Add learn link.
-	$wp_admin_bar->add_node(
-		array(
-			'parent' => 'wp-logo-external',
-			'id'     => 'learn',
-			'title'  => __( 'Learn WordPress' ),
-			'href'   => __( 'https://learn.wordpress.org/' ),
-		)
-	);
-
-	// Add forums link.
-	$wp_admin_bar->add_node(
-		array(
-			'parent' => 'wp-logo-external',
-			'id'     => 'support-forums',
-			'title'  => __( 'Support' ),
-			'href'   => __( 'https://wordpress.org/support/forums/' ),
-		)
-	);
-
-	// Add feedback link.
-	$wp_admin_bar->add_node(
-		array(
-			'parent' => 'wp-logo-external',
-			'id'     => 'feedback',
-			'title'  => __( 'Feedback' ),
-			'href'   => __( 'https://wordpress.org/support/forum/requests-and-feedback' ),
-		)
-	);
 }
 
 /**
@@ -368,6 +295,10 @@ function wp_admin_bar_site_menu( $wp_admin_bar ) {
 	if ( ! is_user_logged_in() ) {
 		return;
 	}
+	
+	if (is_network_admin()) {
+		return;
+	}
 
 	// Show only when the user is a member of this site, or they're a super admin.
 	if ( ! is_user_member_of_blog() && ! current_user_can( 'manage_network' ) ) {
@@ -378,14 +309,6 @@ function wp_admin_bar_site_menu( $wp_admin_bar ) {
 
 	if ( ! $blogname ) {
 		$blogname = preg_replace( '#^(https?://)?(www.)?#', '', get_home_url() );
-	}
-
-	if ( is_network_admin() ) {
-		/* translators: %s: Site title. */
-		$blogname = sprintf( __( 'Network Admin: %s' ), esc_html( get_network()->site_name ) );
-	} elseif ( is_user_admin() ) {
-		/* translators: %s: Site title. */
-		$blogname = sprintf( __( 'User Dashboard: %s' ), esc_html( get_network()->site_name ) );
 	}
 
 	$title = wp_html_excerpt( $blogname, 40, '&hellip;' );

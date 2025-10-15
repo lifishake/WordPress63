@@ -96,7 +96,7 @@ class WP_Site_Health_Auto_Updates {
 	 *                    or null if the test passed.
 	 */
 	public function test_wp_version_check_attached() {
-		if ( ( ! is_multisite() || is_main_site() && is_network_admin() )
+		if ( ( ! is_multisite() || is_main_site() )
 			&& ! has_filter( 'wp_version_check', 'wp_version_check' )
 		) {
 			return array(

@@ -967,10 +967,6 @@ function load_default_textdomain( $locale = null ) {
 		load_textdomain( 'default', WP_LANG_DIR . "/admin-$locale.mo", $locale );
 	}
 
-	if ( is_network_admin() || ( defined( 'WP_INSTALLING_NETWORK' ) && WP_INSTALLING_NETWORK ) ) {
-		load_textdomain( 'default', WP_LANG_DIR . "/admin-network-$locale.mo", $locale );
-	}
-
 	return $return;
 }
 

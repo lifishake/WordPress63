@@ -8,15 +8,7 @@
 
 if ( is_network_admin() ) {
 
-	/**
-	 * Fires before the administration menu loads in the Network Admin.
-	 *
-	 * The hook fires before menus and sub-menus are removed based on user privileges.
-	 *
-	 * @since 3.1.0
-	 * @access private
-	 */
-	do_action( '_network_admin_menu' );
+	die();
 } elseif ( is_user_admin() ) {
 
 	/**
@@ -131,14 +123,7 @@ unset( $id, $data, $subs, $first_sub, $old_parent, $new_parent );
 
 if ( is_network_admin() ) {
 
-	/**
-	 * Fires before the administration menu loads in the Network Admin.
-	 *
-	 * @since 3.1.0
-	 *
-	 * @param string $context Empty context.
-	 */
-	do_action( 'network_admin_menu', '' );
+	die();
 } elseif ( is_user_admin() ) {
 
 	/**

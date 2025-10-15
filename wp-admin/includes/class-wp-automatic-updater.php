@@ -984,19 +984,6 @@ class WP_Automatic_Updater {
 					$body .= __( 'No further action is needed on your part.' ) . ' ';
 				}
 
-				// Can only reference the About screen if their update was successful.
-				list( $about_version ) = explode( '-', $core_update->current, 2 );
-				/* translators: %s: WordPress version. */
-				$body .= sprintf( __( 'For more on version %s, see the About WordPress screen:' ), $about_version );
-				$body .= "\n" . admin_url( 'about.php' );
-
-				if ( $newer_version_available ) {
-					/* translators: %s: WordPress latest version. */
-					$body .= "\n\n" . sprintf( __( 'WordPress %s is also now available.' ), $next_user_core_update->current ) . ' ';
-					$body .= __( 'Updating is easy and only takes a few moments:' );
-					$body .= "\n" . network_admin_url( 'update-core.php' );
-				}
-
 				break;
 
 			case 'fail':
