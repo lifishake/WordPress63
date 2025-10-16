@@ -4211,7 +4211,6 @@ function _wp_image_editor_choose( $args = array() ) {
 	require_once ABSPATH . WPINC . '/class-wp-image-editor.php';
 	require_once ABSPATH . WPINC . '/class-wp-image-editor-gd.php';
 	require_once ABSPATH . WPINC . '/class-wp-image-editor-imagick.php';
-	require_once ABSPATH . WPINC . '/class-avif-info.php';
 	/**
 	 * Filters the list of image editing library classes.
 	 *
@@ -4334,16 +4333,6 @@ function wp_plupload_default_settings() {
 	// Check if WebP images can be edited.
 	if ( ! wp_image_editor_supports( array( 'mime_type' => 'image/webp' ) ) ) {
 		$defaults['webp_upload_error'] = true;
-	}
-
-	// Check if AVIF images can be edited.
-	if ( ! wp_image_editor_supports( array( 'mime_type' => 'image/avif' ) ) ) {
-		$defaults['avif_upload_error'] = true;
-	}
-
-	// Check if HEIC images can be edited.
-	if ( ! wp_image_editor_supports( array( 'mime_type' => 'image/heic' ) ) ) {
-		$defaults['heic_upload_error'] = true;
 	}
 
 	/**
@@ -5626,24 +5615,6 @@ function _wp_add_additional_image_sizes() {
 }
 
 /**
- * Callback to enable showing of the user error when uploading .heic images.
- *
- * @since 5.5.0
- * @since 6.7.0 The default behavior is to enable heic uploads as long as the server
- *              supports the format. The uploads are converted to JPEG's by default.
- *
- * @param array[] $plupload_settings The settings for Plupload.js.
- * @return array[] Modified settings for Plupload.js.
- */
-function wp_show_heic_upload_error( $plupload_settings ) {
-	// Check if HEIC images can be edited.
-	if ( ! wp_image_editor_supports( array( 'mime_type' => 'image/heic' ) ) ) {
-		$plupload_init['heic_upload_error'] = true;
-	}
-	return $plupload_settings;
-}
-
-/**
  * Allows PHP's getimagesize() to be debuggable when necessary.
  *
  * @since 5.7.0
@@ -5719,98 +5690,8 @@ function wp_getimagesize( $filename, ?array &$image_info = null ) {
 		}
 	}
 
-	// For PHP versions that don't support AVIF images, extract the image size info from the file headers.
-	if ( 'image/avif' === $image_mime_type ) {
-		$avif_info = wp_get_avif_info( $filename );
-
-		$width  = $avif_info['width'];
-		$height = $avif_info['height'];
-
-		// Mimic the native return format.
-		if ( $width && $height ) {
-			return array(
-				$width,
-				$height,
-				IMAGETYPE_AVIF,
-				sprintf(
-					'width="%d" height="%d"',
-					$width,
-					$height
-				),
-				'mime' => 'image/avif',
-			);
-		}
-	}
-
-	// For PHP versions that don't support HEIC images, extract the size info using Imagick when available.
-	if ( wp_is_heic_image_mime_type( $image_mime_type ) ) {
-		$editor = wp_get_image_editor( $filename );
-
-		if ( is_wp_error( $editor ) ) {
-			return false;
-		}
-
-		// If the editor for HEICs is Imagick, use it to get the image size.
-		if ( $editor instanceof WP_Image_Editor_Imagick ) {
-			$size = $editor->get_size();
-			return array(
-				$size['width'],
-				$size['height'],
-				IMAGETYPE_HEIC,
-				sprintf(
-					'width="%d" height="%d"',
-					$size['width'],
-					$size['height']
-				),
-				'mime' => 'image/heic',
-			);
-		}
-	}
-
 	// The image could not be parsed.
 	return false;
-}
-
-/**
- * Extracts meta information about an AVIF file: width, height, bit depth, and number of channels.
- *
- * @since 6.5.0
- *
- * @param string $filename Path to an AVIF file.
- * @return array {
- *     An array of AVIF image information.
- *
- *     @type int|false $width        Image width on success, false on failure.
- *     @type int|false $height       Image height on success, false on failure.
- *     @type int|false $bit_depth    Image bit depth on success, false on failure.
- *     @type int|false $num_channels Image number of channels on success, false on failure.
- * }
- */
-function wp_get_avif_info( $filename ) {
-	$results = array(
-		'width'        => false,
-		'height'       => false,
-		'bit_depth'    => false,
-		'num_channels' => false,
-	);
-
-	if ( 'image/avif' !== wp_get_image_mime( $filename ) ) {
-		return $results;
-	}
-
-	// Parse the file using libavifinfo's PHP implementation.
-	require_once ABSPATH . WPINC . '/class-avif-info.php';
-
-	$handle = fopen( $filename, 'rb' );
-	if ( $handle ) {
-		$parser  = new Avifinfo\Parser( $handle );
-		$success = $parser->parse_ftyp() && $parser->parse_file();
-		fclose( $handle );
-		if ( $success ) {
-			$results = $parser->features->primary_item_features;
-		}
-	}
-	return $results;
 }
 
 /**
@@ -6262,12 +6143,7 @@ function wp_high_priority_element_flag( $value = null ) {
  * @return string[] An array of mime type mappings.
  */
 function wp_get_image_editor_output_format( $filename, $mime_type ) {
-	$output_format = array(
-		'image/heic'          => 'image/jpeg',
-		'image/heif'          => 'image/jpeg',
-		'image/heic-sequence' => 'image/jpeg',
-		'image/heif-sequence' => 'image/jpeg',
-	);
+	$output_format = array();
 
 	/**
 	 * Filters the image editor output format mapping.

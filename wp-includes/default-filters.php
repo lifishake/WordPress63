@@ -642,7 +642,6 @@ add_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
 add_action( 'wp_playlist_scripts', 'wp_playlist_scripts' );
 add_action( 'customize_controls_enqueue_scripts', 'wp_plupload_default_settings' );
 add_action( 'plugins_loaded', '_wp_add_additional_image_sizes', 0 );
-add_filter( 'plupload_default_settings', 'wp_show_heic_upload_error' );
 
 // Nav menu.
 add_filter( 'nav_menu_item_id', '_nav_menu_item_id_use_once', 10, 2 );

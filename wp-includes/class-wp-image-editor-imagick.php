@@ -225,12 +225,6 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 						$this->image->setCompressionQuality( $quality );
 					}
 					break;
-				case 'image/avif':
-					// Set the AVIF encoder to work faster, with minimal impact on image size.
-					$this->image->setOption( 'heic:speed', 7 );
-					$this->image->setImageCompressionQuality( $quality );
-					$this->image->setCompressionQuality( $quality );
-					break;
 				default:
 					$this->image->setImageCompressionQuality( $quality );
 					$this->image->setCompressionQuality( $quality );
@@ -268,17 +262,6 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 		if ( ! $height ) {
 			$height = $size['height'];
 		}
-
-		/*
-		 * If we still don't have the image size, fall back to `wp_getimagesize`. This ensures AVIF and HEIC images
-		 * are properly sized without affecting previous `getImageGeometry` behavior.
-		 */
-		if ( ( ! $width || ! $height ) && ( 'image/avif' === $this->mime_type || wp_is_heic_image_mime_type( $this->mime_type ) ) ) {
-			$size   = wp_getimagesize( $this->file );
-			$width  = $size[0];
-			$height = $size[1];
-		}
-
 		return parent::update_size( $width, $height );
 	}
 
