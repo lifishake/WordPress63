@@ -28,9 +28,6 @@ require_once ABSPATH . WPINC . '/widgets/class-wp-widget-media-audio.php';
 /** WP_Widget_Media_Image class */
 require_once ABSPATH . WPINC . '/widgets/class-wp-widget-media-image.php';
 
-/** WP_Widget_Media_Video class */
-require_once ABSPATH . WPINC . '/widgets/class-wp-widget-media-video.php';
-
 /** WP_Widget_Media_Gallery class */
 require_once ABSPATH . WPINC . '/widgets/class-wp-widget-media-gallery.php';
 
