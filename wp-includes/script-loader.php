@@ -1373,9 +1373,6 @@ function wp_default_scripts( $scripts ) {
 		)
 	);
 
-	$scripts->add( 'wp-embed', "/wp-includes/js/wp-embed$suffix.js" );
-	did_action( 'init' ) && $scripts->add_data( 'wp-embed', 'strategy', 'defer' );
-
 	/*
 	 * To enqueue media-views or media-editor, call wp_enqueue_media().
 	 * Both rely on numerous settings, styles, and templates to operate correctly.
@@ -1625,9 +1622,7 @@ function wp_default_styles( $styles ) {
 	$styles->add( 'media-views', "/wp-includes/css/media-views$suffix.css", array( 'buttons', 'dashicons', 'wp-mediaelement' ) );
 	$styles->add( 'wp-pointer', "/wp-includes/css/wp-pointer$suffix.css", array( 'dashicons' ) );
 	$styles->add( 'customize-preview', "/wp-includes/css/customize-preview$suffix.css", array( 'dashicons' ) );
-	$styles->add( 'wp-embed-template-ie', "/wp-includes/css/wp-embed-template-ie$suffix.css" );
 	$styles->add( 'wp-empty-template-alert', "/wp-includes/css/wp-empty-template-alert$suffix.css" );
-	$styles->add_data( 'wp-embed-template-ie', 'conditional', 'lte IE 8' );
 
 	// External libraries and friends.
 	$styles->add( 'imgareaselect', '/wp-includes/js/imgareaselect/imgareaselect.css', array(), '0.9.8' );

@@ -245,10 +245,6 @@ require ABSPATH . WPINC . '/class-wp-tax-query.php';
 require ABSPATH . WPINC . '/update.php';
 require ABSPATH . WPINC . '/canonical.php';
 require ABSPATH . WPINC . '/shortcodes.php';
-require ABSPATH . WPINC . '/embed.php';
-require ABSPATH . WPINC . '/class-wp-embed.php';
-require ABSPATH . WPINC . '/class-wp-oembed.php';
-require ABSPATH . WPINC . '/class-wp-oembed-controller.php';
 require ABSPATH . WPINC . '/media.php';
 require ABSPATH . WPINC . '/http.php';
 require ABSPATH . WPINC . '/html-api/html5-named-character-references.php';
@@ -397,13 +393,6 @@ require ABSPATH . WPINC . '/class-wp-plugin-dependencies.php';
 
 add_action( 'after_setup_theme', array( wp_script_modules(), 'add_hooks' ) );
 add_action( 'after_setup_theme', array( wp_interactivity(), 'add_hooks' ) );
-
-/**
- * @since 3.3.0
- *
- * @global WP_Embed $wp_embed WordPress Embed object.
- */
-$GLOBALS['wp_embed'] = new WP_Embed();
 
 /**
  * WordPress Textdomain Registry object.

@@ -156,7 +156,6 @@ require_once ABSPATH . 'wp-admin/admin-header.php';
 	<form method="post">
 		<?php
 		$requests_table->display();
-		$requests_table->embed_scripts();
 		?>
 	</form>
 </div>

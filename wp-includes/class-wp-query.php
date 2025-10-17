@@ -995,10 +995,6 @@ class WP_Query {
 			$this->is_feed = true;
 		}
 
-		if ( '' != $qv['embed'] ) {
-			$this->is_embed = true;
-		}
-
 		if ( '' != $qv['tb'] ) {
 			$this->is_trackback = true;
 		}
@@ -1126,7 +1122,7 @@ class WP_Query {
 			$this->set_404();
 		}
 
-		$this->is_embed = $this->is_embed && ( $this->is_singular || $this->is_404 );
+		$this->is_embed = false;
 
 		$this->query_vars_hash    = md5( serialize( $this->query_vars ) );
 		$this->query_vars_changed = false;

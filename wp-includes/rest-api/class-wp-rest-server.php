@@ -463,8 +463,7 @@ class WP_REST_Server {
 
 		// Wrap the response in an envelope if asked for.
 		if ( isset( $_GET['_envelope'] ) ) {
-			$embed  = isset( $_GET['_embed'] ) ? rest_parse_embed_param( $_GET['_embed'] ) : false;
-			$result = $this->envelope_response( $result, $embed );
+			$result = $this->envelope_response( $result, false );
 		}
 
 		// Send extra data from response objects.
@@ -520,8 +519,7 @@ class WP_REST_Server {
 			}
 
 			// Embed links inside the request.
-			$embed  = isset( $_GET['_embed'] ) ? rest_parse_embed_param( $_GET['_embed'] ) : false;
-			$result = $this->response_to_data( $result, $embed );
+			$result = $this->response_to_data( $result, false );
 
 			/**
 			 * Filters the REST API response.

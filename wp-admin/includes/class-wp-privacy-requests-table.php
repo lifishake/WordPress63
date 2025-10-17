@@ -556,11 +556,4 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 		$this->single_row_columns( $item );
 		echo '</tr>';
 	}
-
-	/**
-	 * Embeds scripts used to perform actions. Overridden by children.
-	 *
-	 * @since 4.9.6
-	 */
-	public function embed_scripts() {}
 }

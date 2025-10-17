@@ -247,7 +247,7 @@ function _block_template_render_title_tag() {
  * @return string Block template markup.
  */
 function get_the_block_template_html() {
-	global $_wp_current_template_id, $_wp_current_template_content, $wp_embed, $wp_query;
+	global $_wp_current_template_id, $_wp_current_template_content, $wp_query;
 
 	if ( ! $_wp_current_template_content ) {
 		if ( is_user_logged_in() ) {
@@ -256,8 +256,7 @@ function get_the_block_template_html() {
 		return;
 	}
 
-	$content = $wp_embed->run_shortcode( $_wp_current_template_content );
-	$content = $wp_embed->autoembed( $content );
+	$content = $_wp_current_template_content ;
 	$content = shortcode_unautop( $content );
 	$content = do_shortcode( $content );
 

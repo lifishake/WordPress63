@@ -76,28 +76,6 @@ function wp_robots_noindex( array $robots ) {
 }
 
 /**
- * Adds `noindex` to the robots meta tag for embeds.
- *
- * Typical usage is as a {@see 'wp_robots'} callback:
- *
- *     add_filter( 'wp_robots', 'wp_robots_noindex_embeds' );
- *
- * @since 5.7.0
- *
- * @see wp_robots_no_robots()
- *
- * @param array $robots Associative array of robots directives.
- * @return array Filtered robots directives.
- */
-function wp_robots_noindex_embeds( array $robots ) {
-	if ( is_embed() ) {
-		return wp_robots_no_robots( $robots );
-	}
-
-	return $robots;
-}
-
-/**
  * Adds `noindex` to the robots meta tag if a search is being performed.
  *
  * If a search is being performed then noindex will be output to

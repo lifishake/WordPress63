@@ -69,9 +69,6 @@ function render_block_core_pattern( $attributes ) {
 
 	$content = do_blocks( $content );
 
-	global $wp_embed;
-	$content = $wp_embed->autoembed( $content );
-
 	unset( $seen_refs[ $attributes['slug'] ] );
 	return $content;
 }

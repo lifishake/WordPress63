@@ -2965,8 +2965,7 @@ function rest_preload_api_request( $memo, $path ) {
 		$server = rest_get_server();
 		/** This filter is documented in wp-includes/rest-api/class-wp-rest-server.php */
 		$response = apply_filters( 'rest_post_dispatch', rest_ensure_response( $response ), $server, $request );
-		$embed    = $request->has_param( '_embed' ) ? rest_parse_embed_param( $request['_embed'] ) : false;
-		$data     = (array) $server->response_to_data( $response, $embed );
+		$data     = (array) $server->response_to_data( $response, false );
 
 		if ( 'OPTIONS' === $method ) {
 			$memo[ $method ][ $path ] = array(
@@ -2982,28 +2981,6 @@ function rest_preload_api_request( $memo, $path ) {
 	}
 
 	return $memo;
-}
-
-/**
- * Parses the "_embed" parameter into the list of resources to embed.
- *
- * @since 5.4.0
- *
- * @param string|array $embed Raw "_embed" parameter value.
- * @return true|string[] Either true to embed all embeds, or a list of relations to embed.
- */
-function rest_parse_embed_param( $embed ) {
-	if ( ! $embed || 'true' === $embed || '1' === $embed ) {
-		return true;
-	}
-
-	$rels = wp_parse_list( $embed );
-
-	if ( ! $rels ) {
-		return true;
-	}
-
-	return $rels;
 }
 
 /**

@@ -55,7 +55,6 @@ if ( is_robots() ) {
 if ( wp_using_themes() ) {
 
 	$tag_templates = array(
-		'is_embed'             => 'get_embed_template',
 		'is_404'               => 'get_404_template',
 		'is_search'            => 'get_search_template',
 		'is_front_page'        => 'get_front_page_template',

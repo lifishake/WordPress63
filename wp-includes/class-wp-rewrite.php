@@ -889,7 +889,6 @@ class WP_Rewrite {
 		$trackbackregex = 'trackback/?$';
 		$pageregex      = $this->pagination_base . '/?([0-9]{1,})/?$';
 		$commentregex   = $this->comments_pagination_base . '-([0-9]{1,})/?$';
-		$embedregex     = 'embed/?$';
 
 		// Build up an array of endpoint regexes to append => queries to append.
 		if ( $endpoints ) {
@@ -915,7 +914,6 @@ class WP_Rewrite {
 		$index          = $this->index; // Probably 'index.php'.
 		$feedindex      = $index;
 		$trackbackindex = $index;
-		$embedindex     = $index;
 
 		/*
 		 * Build a list from the rewritecode and queryreplace arrays, that will look something
@@ -1005,10 +1003,6 @@ class WP_Rewrite {
 			$feedmatch2 = $match . $feedregex2;
 			$feedquery2 = $feedindex . '?' . $query . '&feed=' . $this->preg_index( $num_toks + 1 );
 
-			// Create query and regex for embeds.
-			$embedmatch = $match . $embedregex;
-			$embedquery = $embedindex . '?' . $query . '&embed=true';
-
 			// If asked to, turn the feed queries into comment feed ones.
 			if ( $forcomments ) {
 				$feedquery  .= '&withcomments=1';
@@ -1023,7 +1017,6 @@ class WP_Rewrite {
 				$rewrite = array(
 					$feedmatch  => $feedquery,
 					$feedmatch2 => $feedquery2,
-					$embedmatch => $embedquery,
 				);
 			}
 
@@ -1095,10 +1088,6 @@ class WP_Rewrite {
 					$trackbackmatch = $match . $trackbackregex;
 					$trackbackquery = $trackbackindex . '?' . $query . '&tb=1';
 
-					// Create query and regex for embeds.
-					$embedmatch = $match . $embedregex;
-					$embedquery = $embedindex . '?' . $query . '&embed=true';
-
 					// Trim slashes from the end of the regex for this dir.
 					$match = rtrim( $match, '/' );
 
@@ -1119,10 +1108,6 @@ class WP_Rewrite {
 
 					// And <permalink>/comment-page-xx
 					$sub1comment = $sub1 . $commentregex;
-
-					// And <permalink>/embed/...
-					$sub1embed = $sub1 . $embedregex;
-
 					/*
 					 * Add another rule to match attachments in the explicit form:
 					 * <permalink>/attachment/some-text
@@ -1141,15 +1126,11 @@ class WP_Rewrite {
 					// And <permalink>/comment-page-xx
 					$sub2comment = $sub2 . $commentregex;
 
-					// And <permalink>/embed/...
-					$sub2embed = $sub2 . $embedregex;
-
 					// Create queries for these extra tag-ons we've just dealt with.
 					$subquery        = $index . '?attachment=' . $this->preg_index( 1 );
 					$subtbquery      = $subquery . '&tb=1';
 					$subfeedquery    = $subquery . '&feed=' . $this->preg_index( 2 );
 					$subcommentquery = $subquery . '&cpage=' . $this->preg_index( 2 );
-					$subembedquery   = $subquery . '&embed=true';
 
 					// Do endpoints for attachments.
 					if ( ! empty( $endpoints ) ) {
@@ -1196,9 +1177,6 @@ class WP_Rewrite {
 					// Add trackback.
 					$rewrite = array_merge( array( $trackbackmatch => $trackbackquery ), $rewrite );
 
-					// Add embed.
-					$rewrite = array_merge( array( $embedmatch => $embedquery ), $rewrite );
-
 					// Add regexes/queries for attachments, attachment trackbacks and so on.
 					if ( ! $page ) {
 						// Require <permalink>/attachment/stuff form for pages because of confusion with subpages.
@@ -1210,7 +1188,6 @@ class WP_Rewrite {
 								$sub1feed    => $subfeedquery,
 								$sub1feed2   => $subfeedquery,
 								$sub1comment => $subcommentquery,
-								$sub1embed   => $subembedquery,
 							)
 						);
 					}
@@ -1222,7 +1199,6 @@ class WP_Rewrite {
 							$sub2feed    => $subfeedquery,
 							$sub2feed2   => $subfeedquery,
 							$sub2comment => $subcommentquery,
-							$sub2embed   => $subembedquery,
 						),
 						$rewrite
 					);

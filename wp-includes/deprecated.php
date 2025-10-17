@@ -5885,24 +5885,6 @@ function _wp_theme_json_webfonts_handler() {
 }
 
 /**
- * Prints the CSS in the embed iframe header.
- *
- * @since 4.4.0
- * @deprecated 6.4.0 Use wp_enqueue_embed_styles() instead.
- */
-function print_embed_styles() {
-	_deprecated_function( __FUNCTION__, '6.4.0', 'wp_enqueue_embed_styles' );
-
-	$type_attr = current_theme_supports( 'html5', 'style' ) ? '' : ' type="text/css"';
-	$suffix    = SCRIPT_DEBUG ? '' : '.min';
-	?>
-	<style<?php echo $type_attr; ?>>
-		<?php echo file_get_contents( ABSPATH . WPINC . "/css/wp-embed-template$suffix.css" ); ?>
-	</style>
-	<?php
-}
-
-/**
  * Prints the important emoji-related styles.
  *
  * @since 4.2.0

@@ -49,7 +49,6 @@ $core_actions_get = array(
 	'ajax-tag-search',
 	'wp-compression-test',
 	'imgedit-preview',
-	'oembed-cache',
 	'autocomplete-user',
 	'dashboard-widgets',
 	'logged-in',
@@ -57,7 +56,6 @@ $core_actions_get = array(
 );
 
 $core_actions_post = array(
-	'oembed-cache',
 	'image-editor',
 	'delete-comment',
 	'delete-tag',

@@ -876,14 +876,7 @@ function is_404() {
  * @return bool Whether the query is for an embedded post.
  */
 function is_embed() {
-	global $wp_query;
-
-	if ( ! isset( $wp_query ) ) {
-		_doing_it_wrong( __FUNCTION__, __( 'Conditional query tags do not work before the query is run. Before then, they always return false.' ), '3.1.0' );
-		return false;
-	}
-
-	return $wp_query->is_embed();
+	return false;
 }
 
 /**

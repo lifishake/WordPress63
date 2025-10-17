@@ -46,9 +46,7 @@ function render_block_core_block( $attributes ) {
 	$seen_refs[ $attributes['ref'] ] = true;
 
 	// Handle embeds for reusable blocks.
-	global $wp_embed;
-	$content = $wp_embed->run_shortcode( $reusable_block->post_content );
-	$content = $wp_embed->autoembed( $content );
+	$content = $reusable_block->post_content;
 
 	// Back compat.
 	// For blocks that have not been migrated in the editor, add some back compat
